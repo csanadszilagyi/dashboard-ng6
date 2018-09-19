@@ -1,0 +1,56 @@
+
+
+<ngx-smart-modal #myModal identifier="myModal" customClass="nsm-dialog-animation-fade nsm-centered" 
+(onCloseFinished)="modalClosingFinished(myModal)">
+      <div class="modal-header">
+        <h5 class="modal-title" id="infoModalLabel">Product information</h5>
+      </div>
+      <div class="modal-body">
+        
+        {{ crudModal?.message }}
+      </div>
+      <div class="modal-footer">
+        <button *ngIf="crudModal?.declineText !== ''" type="button" class="btn btn-secondary" data-dismiss="modal" (click)="modalClose()">{{ crudModal?.declineText }}</button>
+        <button type="button" class="btn btn-primary" (click)="modalAccept($event)">{{ crudModal?.acceptText }}</button>
+      </div>
+</ngx-smart-modal>
+
+  <div class="row">
+    <div class="col-md-12 p-4">
+      <button type="button" class="btn btn-primary" [@scaleAnimation]="loading" (click)="refreshList()">Refresh</button>
+    </div>
+    
+    <ng-container
+      *ngIf="loading; then loader; else dataTable">
+    </ng-container>
+
+    <ng-template #loader>
+      <div class="col-md-12 loader-wrapper">
+        <div class="loader-ripple">
+          <div></div>
+          <div></div>
+        </div>
+      </div>
+    </ng-template>
+    
+    <ng-template #dataTable>
+      <table class="table table-hover table-bordered">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Name</th>
+            <th scope="col">Price</th>
+            <th scope="col">Operations</th>
+          </tr>
+        </thead>
+        <tbody>
+            <tr app-product 
+                *ngFor="let p of _products" 
+                [item]="p"
+                (edit)="handleEdit($event)" 
+                (remove)="handleRemove($event)">
+            </tr>
+        </tbody>
+      </table>
+    </ng-template>
+  </div>

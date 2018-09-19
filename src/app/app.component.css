@@ -1,0 +1,14 @@
+
+.main-wrapper {
+    display: block;
+    max-width: 1200px;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.router-inner-wrapper {
+    position: relative;
+    display: block;
+    padding: 0;
+    margin: 0;
+}
